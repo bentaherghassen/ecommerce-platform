@@ -1,0 +1,104 @@
+        /* Material Design inspired styles */
+        
+          
+       
+
+        .navbar {
+          background-color: #3f51b5;
+          /* Primary color */
+          color: white;
+        }
+
+        .navbar-brand {
+          font-weight: bold;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+          color: white;
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover {
+          color: #bbdefb;
+          /* Lighten on hover */
+        }
+
+html,
+body {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+.dark-theme {
+    --bg-color: #121212;
+    --text-color: #fff;
+    /* ... other dark theme styles */
+}
+
+/* Remove borders from the table */
+table {
+  border-collapse: collapse;
+  border: none;
+}
+
+/* Style the table header (<th>) */
+th {
+  padding: 10px;
+  /* Add some padding for better readability */
+  text-align: left;
+  /* Align text to the left */
+}
+
+/* Style the table title (<h1>) */
+h1 {
+  color: #FF416C;
+  /* Set font color to #FF416C (pink) */
+}
+
+/* Style the delete button */
+.delete-button {
+  background-color: transparent;
+  /* Remove default button background */
+  border: none;
+  /* Remove default button border */
+  color: #FF416C;
+  /* Set font color to #FF416C (pink) */
+  cursor: pointer;
+  /* Make the cursor a pointer on hover */
+  padding: 5px 10px;
+  /* Add some padding */
+  border-radius: 5px;
+  /* Add rounded corners for a nicer look */
+}
+
+/* Style the delete button on hover */
+.delete-button:hover {
+  background-color: #ddd;
+  /* Add a light gray background on hover */
+}

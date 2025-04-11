@@ -1,0 +1,62 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container mt-5">
+  <h1>Products by Author: {{ author_name }}</h1>
+  <div class="row">
+    {% for product in products.items %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        {% if product.image %}
+        <img
+          src="{{ url_for('static', filename='uploads/' + product.image) }}"
+          class="card-img-top"
+          alt="{{ product.name }}"
+        />
+        {% else %}
+        <img
+          src="{{ url_for('static', filename='placeholder.png') }}"
+          class="card-img-top"
+          alt="Placeholder"
+        />
+        {% endif %}
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{ product.description|truncate(100) }}</p>
+          <p class="card-text">
+            <small class="text-muted">Category: {{ product.category }}</small>
+          </p>
+          <p class="card-text">{{ product.price }} TND</p>
+          {% if product.quantity > 0 %}
+          <p class="card-text text-success">In Stock</p>
+          {% else %}
+          <p class="card-text text-danger">Out of Stock</p>
+          {% endif %}
+          <div class="mt-auto">
+            <a
+              href="{{ url_for('product.product_detail', product_id=product.id) }}"
+              class="btn btn-info btn-sm"
+              >Details</a
+            >
+            <form
+              method="POST"
+              action="{{ url_for('cart.add_to_cart', product_id=product.id) }}"
+              class="d-inline ml-2"
+            >
+              <button type="submit" class="btn btn-success btn-sm">
+                Add to Cart
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <p class="lead">No products found by the author: {{ author_name }}</p>
+    {% endfor %}
+  </div>
+  {% if pagination %}
+  <div class="d-flex justify-content-center mt-4">
+    {{ pagination.render_pager() }}
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,88 @@
+{% extends "layout.html" %} {% block content %}
+<div class="content-section">
+  <h1>Update Product</h1>
+  <form method="POST" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Update {{ product.name }}</legend>
+      <div class="form-group">
+        {{ form.name.label(class="form-control-label") }} {{
+        form.name(class="form-control form-control-lg") }} {% if
+        form.name.errors %}
+        <ul class="errors">
+          {% for error in form.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.description.label(class="form-control-label") }} {{
+        form.description(class="form-control form-control-lg", rows="5") }} {%
+        if form.description.errors %}
+        <ul class="errors">
+          {% for error in form.description.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.price.label(class="form-control-label") }} {{
+        form.price(class="form-control form-control-lg") }} {% if
+        form.price.errors %}
+        <ul class="errors">
+          {% for error in form.price.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.quantity.label(class="form-control-label") }} {{
+        form.quantity(class="form-control form-control-lg") }} {% if
+        form.quantity.errors %}
+        <ul class="errors">
+          {% for error in form.quantity.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.category.label(class="form-control-label") }} {{
+        form.category(class="form-control form-control-lg") }} {% if
+        form.category.errors %}
+        <ul class="errors">
+          {% for error in form.category.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.image.label(class="form-control-label") }} {{
+        form.image(class="form-control-file") }}
+        <small class="form-text text-muted"
+          >Leave blank to keep the current image.</small
+        >
+        {% if form.image.errors %}
+        <ul class="errors">
+          {% for error in form.image.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </fieldset>
+    <div class="">
+      <button class="btn btn-outline-info" type="submit">Update Product</button>
+      <a
+        class="btn btn-outline-secondary ml-2"
+        href="{{ url_for('product.product_detail', product_id=product.id) }}"
+        >Cancel</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock content %}

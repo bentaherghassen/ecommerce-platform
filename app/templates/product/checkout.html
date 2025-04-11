@@ -1,0 +1,53 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container">
+  <h1>Checkout</h1>
+  {% if cart_items %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart_items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.product.price }}</td>
+        <td>${{ item.total_price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" class="text-right">Subtotal:</td>
+        <td>${{ cart_total }}</td>
+      </tr>
+      <tr>
+        <td colspan="3" class="text-right">Shipping:</td>
+        <td>${{ shipping_cost }}</td>
+      </tr>
+      <tr>
+        <td colspan="3" class="text-right">Total:</td>
+        <td><strong>${{ final_total }}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <form method="POST" action="{{ url_for('product.place_order') }}">
+    <button type="submit" class="btn btn-success btn-lg">Place Order</button>
+  </form>
+
+  <a href="{{ url_for('product.view_cart') }}" class="btn btn-secondary mt-2"
+    >Back to Cart</a
+  >
+  {% else %}
+  <p>
+    Your cart is empty. <a href="{{ url_for('main.home') }}">Start shopping!</a>
+  </p>
+  {% endif %}
+</div>
+{% endblock content %}

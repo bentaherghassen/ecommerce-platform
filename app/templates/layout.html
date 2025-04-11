@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="A brief and compelling description of your page content."
+    />
+    <meta name="keywords" content="keyword1, keyword2, keyword3" />
+    <meta name="author" content="Ghassen Ben Taher" />
+    <meta property="og:title" content="Sightless Coder" />
+    <meta
+      property="og:description"
+      content="I Never thought I'd be a programmer without sight, but with little help from my trusty screen reader and a whole lot of caffeine. here I am!"
+    />
+
+    <meta property="og:url" content="https://www.bentaherghassen.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bentaherghassen" />
+    <meta name="twitter:creator" content="@bentaherghassen" />
+    <meta name="twitter:title" content="Sightless Coder" />
+    <meta
+      name="twitter:description"
+      content="I Never thought I'd be a programmer without sight, but with little help from my trusty screen reader and a whole lot of caffeine. here I am!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.bentaherghassen.com/image.jpg"
+    />
+    <meta name="twitter:domain" content="https://www.bentaherghassen.com" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="google-site-verification"
+      content="your-google-verification-code"
+    />
+    <meta name="copyright" content="Copyright © Ghassen Ben Taher" />
+
+    <!-- End Meta -->
+
+    {% if title %}
+    <title>AppName- {{title}} Page</title>
+    {% else %}
+    <title>AppName </title>
+    {%endif%}
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <!-- End Favicon -->
+
+    <!-- Css  -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+
+<!-- Bootstrap -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- End Css -->
+    <!-- Fonts -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <!-- End Fonts -->
+  </head>
+
+  
+<body class="d-flex flex-column min-vh-100">
+    <!-- NAVBAR -->
+    <div>
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">.</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="{{url_for('main.home')}}">Home</a>
+                    <a class="nav-link fw-bold py-1 px-0" href="{{url_for('main.about')}}">About</a>
+                    {% if current_user.is_authenticated %}
+                    <div class="btn-group">
+  <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    {{ current_user.fname }}
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <h6 class="dropdown-header">My Account </h6>
+    </li>
+    <li><a class="dropdown-item" href="{{url_for('users.view_profile')}}">View My Profile</a></li>
+    
+    
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="{{url_for('users.logout')}}">Logout</a></li>
+  </ul>
+</div>
+<!-- <a class="nav-link fw-bold py-1 px-0" href="{{url_for('product.add_product')}}">+</a> -->
+ <a href="{{ url_for('product.add_product') }}" class="btn btn-primary">+</a>
+                    {% else %}
+                    <a class="nav-link fw-bold py-1 px-0" href="{{url_for('users.register')}}">Register</a>
+                    <a class="nav-link fw-bold py-1 px-0" href="{{url_for('users.login')}}">Login</a>
+                    {% endif%}
+                    <a href="{{ url_for('product.view_cart') }}" class="nav-link fw-bold py-1 px-0">
+      Shop
+      {% if 'cart' in session and session['cart'] %}
+          <span class="badge bg-success">{{ session['cart']|length }}</span>
+      {% endif %}
+  </a>
+       
+                </nav>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}} text-center">
+            {{message}}
+        </div>
+        {% endfor %}
+
+        {% endif %}
+        {% endwith %}
+        {% block content%} {% endblock %}
+
+            <!-- footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-4">
+                    <h4>About Us</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quidem nihil dolor officiis at magni!</p>
+                    <div class="icon-container">
+                        <i class="fa-solid fa-location-dot icon"></i> 
+                        <a href="#">Location Company Name</a>, Location_company_name</div>
+                    <div class="icon-container">
+                        <i class="fa-solid fa-envelope icon"></i> 
+                        <a href="mailto:email@email.com">email@email.com</a></div>
+                    <div class="icon-container">
+                        <i class="fa-brands fa-whatsapp icon"></i> 
+                        <a href="whatsapp://send?phone=WHATSAPP_NUMBER">Whatsapp_Number</a></div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{{url_for('main.about_us')}}">About us</a></li>
+                        <li><a href="{{url_for('main.privacy_policy')}}">Privacy Policy</a></li>
+                        <li><a href="{{url_for('main.terms_condition')}}">Terms & Conditions</a></li>
+                        <li><a href="{{url_for('main.download')}}">Download App</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <h4>Social Links</h4>
+                    <a href="#" class="text-white p-2"><i class="bi-github"></i></a>
+                    <a href="#" class="text-white p-2"><i class="bi-youtube"></i></a>
+                    <a href="#" class="text-white p-2"><i class="bi-facebook"></i></a>
+                    <a href="#" class="text-white p-2"><i class="bi-twitter"></i></a>
+                    <a href="#" class="text-white p-2"><i class="bi-instagram"></i></a>
+                    <a href="#" class="text-white p-2"><i class="bi-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p id="copyright">Copyright © <span id="currentYear">2025</span> || Company Name</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/current_date.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/cunt_shop.js') }}"></script>
+        
+
+
+
+  </body>
+</html>

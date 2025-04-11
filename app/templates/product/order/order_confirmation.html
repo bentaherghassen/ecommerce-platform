@@ -1,0 +1,46 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container">
+  <h1>Order Confirmation</h1>
+  <p class="lead">Thank you for your order!</p>
+  <p>Your order ID is: <strong>{{ order.id }}</strong></p>
+  <p>Order Date: {{ order.order_date.strftime('%Y-%m-%d %H:%M:%S UTC') }}</p>
+
+  <a
+    href="{{ url_for('product.download_order_pdf', order_id=order.id) }}"
+    class="btn btn-primary"
+    >Download as PDF</a
+  >
+
+  <h3>Order Details:</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order_items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.price }}</td>
+        <td>${{ item.quantity * item.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" class="text-right">Total Amount:</td>
+        <td><strong>${{ order.total_amount }}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+  <p>You can view your order history in your profile.</p>
+  <a href="{{ url_for('main.home') }}" class="btn btn-secondary"
+    >Continue Shopping</a
+  >
+</div>
+{% endblock content %}

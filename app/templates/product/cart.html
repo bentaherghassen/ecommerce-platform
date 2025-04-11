@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Shopping Cart</h1>
+    {% if cart_items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>
+                    <img src="{{ url_for('static', filename='media/product_images/' + item.product.image) }}" alt="{{ item.product.name }}" class="img-thumbnail" style="max-width: 70px;">
+                    <a href="{{ url_for('product.product_detail', product_id=item.product.id) }}">{{ item.product.name }}</a>
+                </td>
+                <td>${{ item.product.price }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('product.update_cart_item', item_id=item.product.id) }}" class="d-inline">
+                        <div class="input-group input-group-sm" style="width: 120px;">
+                            <input type="number" class="form-control" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.quantity }}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+                <td>${{ item.total_price|round(2) }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('product.remove_from_cart', item_id=item.product.id) }}" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                <td>${{ cart_total|round(2) }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right"><strong>Shipping:</strong></td>
+                <td>${{ shipping_cost|round(2) }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                <td><strong>${{ (cart_total + shipping_cost)|round(2) }}</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-right">
+                    <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Continue Shopping</a>
+                    {% if cart_items %}
+                    <a href="{{ url_for('product.checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
+                    <a href="{{ url_for('product.clear_cart') }}" class="btn btn-warning ml-2">Clear Cart</a>
+                    {% endif %}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    {% else %}
+    <p class="lead">Your cart is empty. <a href="{{ url_for('main.home') }}">Start Shopping</a></p>
+    {% endif %}
+</div>
+{% endblock content %}

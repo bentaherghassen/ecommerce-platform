@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Shopping Cart</h1>
+    {% if cart_items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>
+                    <img src="{{ url_for('static', filename='images/' + item.product.image_file) }}" alt="{{ item.product.name }}" class="img-thumbnail" style="max-width: 50px;">
+                    {{ item.product.name }}
+                </td>
+                <td>${{ item.product.price }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('update_cart_item', item_id=item.id) }}" class="d-inline">
+                        <div class="input-group input-group-sm" style="width: 100px;">
+                            <input type="number" class="form-control" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.quantity }}">
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">Update</button>
+                        </div>
+                    </form>
+                </td>
+                <td>${{ item.total_price }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('remove_from_cart', item_id=item.id) }}" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                <td>${{ cart_total }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-right">
+                    <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Continue Shopping</a>
+                    <a href="{{ url_for('checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    {% else %}
+    <p class="lead">Your cart is empty.</p>
+    <a href="{{ url_for('main.home') }}" class="btn btn-primary">Start Shopping</a>
+    {% endif %}
+</div>
+{% endblock content %}

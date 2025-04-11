@@ -1,0 +1,92 @@
+{%extends "layout.html"%} {% block content%}
+<div class="container mt-auto align-items-center">
+      <form action=" " method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag()}}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Add New Product:</legend>
+      <!-- name Field -->
+      <div class="form-group">
+        {{ form.name.label(class='form-control-label')}} {% if
+        form.name.errors%} {{ form.name(class='form-control form-control-lg
+        is-invalid')}}
+        <div class="invalid-feedback">
+          {% for error in form.name.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.name(class='form-control form-control-lg')}} {%
+        endif %}
+      </div>
+      <!-- description Field -->
+      <div class="form-group">
+        {{ form.description.label(class='form-control-label')}} {% if
+        form.description.errors%} {{ form.description(class='form-control form-control-lg
+        is-invalid')}}
+        <div class="invalid-feedback">
+          {% for error in form.description.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.description(class='form-control form-control-lg')}} {%
+        endif %}
+      </div>
+      <!-- price Field -->
+      <div class="form-group">
+        {{ form.price.label(class='form-control-label')}} {% if
+        form.price.errors%} {{ form.price(class='form-control
+        form-control-lg is-invalid')}}
+        <div class="invalid-feedback">
+          {% for error in form.price.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.price(class='form-control form-control-lg')}} {%
+        endif %}
+      </div>
+      <!-- quantity Field -->
+      <div class="form-group">
+        {{ form.quantity.label(class='form-control-label')}} {% if
+        form.quantity.errors%} {{ form.quantity(class='form-control form-control-lg
+        is-invalid')}}
+        <div class="invalid-feedback">
+          {% for error in form.quantity.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.quantity(class='form-control form-control-lg')}} {%
+        endif %}
+      </div>
+
+      <!-- category Field -->
+      <div class="form-group">
+        {{ form.category.label(class='form-control-label')}} {% if
+        form.category.errors%} {{ form.category(class='form-control form-control-lg
+        is-invalid')}}
+        <div class="invalid-feedback">
+          {% for error in form.category.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.category(class='form-control form-control-lg')}} {%
+        endif %}
+      </div>
+      
+
+      <!--  image field-->
+                      <div class="form-group mb-3">
+                    {{ form.image.label}}
+                    {{ form.image(class='form-control-file')}}
+                    {% if form.image.errors %}
+                    {% for error in form.image.errors %}
+                    <span class="text-danger">{{ error }}</span></br>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+      <div class="form-group">
+        {{ form.submit(class='btn btn-outline-info')}}
+      </div>
+    </fieldset>
+  </form>
+
+  {% endblock content %}
+</div>

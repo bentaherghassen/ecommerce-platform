@@ -1,0 +1,88 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container mt-5">
+  <h1>Order Details</h1>
+  <h5 class="mb-3">Order ID: {{ order.id }}</h5>
+  <p class="mb-3">
+    Order Date: {{ order.order_date.strftime('%Y-%m-%d %H:%M:%S UTC') }}
+  </p>
+
+  <h3>Items in this Order:</h3>
+  {% if order_items.items %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order_items.items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.price }}</td>
+        <td>${{ item.quantity * item.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" class="text-right">Order Total:</td>
+        <td><strong>${{ order.total_amount }}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+  <nav aria-label="Order items pagination">
+    <ul class="pagination justify-content-center">
+      <li
+        class="page-item {% if not order_items.has_prev %}disabled{% endif %}"
+      >
+        <a
+          class="page-link"
+          href="{{ url_for('product.order_details', order_id=order.id, page=order_items.prev_num) }}"
+          >Previous</a
+        >
+      </li>
+      {% for page_num in order_items.iter_pages(left_edge=1, right_edge=1,
+      left_current=1, right_current=2) %} {% if page_num %} {% if
+      order_items.page == page_num %}
+      <li class="page-item active">
+        <a
+          class="page-link"
+          href="{{ url_for('product.order_details', order_id=order.id, page=page_num) }}"
+          >{{ page_num }}</a
+        >
+      </li>
+      {% else %}
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="{{ url_for('product.order_details', order_id=order.id, page=page_num) }}"
+          >{{ page_num }}</a
+        >
+      </li>
+      {% endif %} {% else %}
+      <li class="page-item disabled"><a class="page-link">...</a></li>
+      {% endif %} {% endfor %}
+      <li
+        class="page-item {% if not order_items.has_next %}disabled{% endif %}"
+      >
+        <a
+          class="page-link"
+          href="{{ url_for('product.order_details', order_id=order.id, page=order_items.next_num) }}"
+          >Next</a
+        >
+      </li>
+    </ul>
+  </nav>
+  {% else %}
+  <p>No items found in this order.</p>
+  {% endif %}
+
+  <a href="{{ url_for('product.order_history') }}" class="btn btn-secondary"
+    >Back to Order History</a
+  >
+</div>
+{% endblock content %}

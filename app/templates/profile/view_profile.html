@@ -1,0 +1,66 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container mt-5">
+  <h1 class="text-center mb-4" style="color: #ff416c">Your Profile</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="mb-3">
+            <h6 class="card-subtitle mb-2 text-muted">First Name</h6>
+            <p class="card-text">{{ current_user.fname }}</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="card-subtitle mb-2 text-muted">Last Name</h6>
+            <p class="card-text">{{ current_user.lname }}</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="card-subtitle mb-2 text-muted">Username</h6>
+            <p class="card-text">{{ current_user.username }}</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="card-subtitle mb-2 text-muted">Email</h6>
+            <p class="card-text">{{ current_user.email }}</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="card-subtitle mb-2 text-muted">Bio</h6>
+            <p class="card-text">{{ current_user.bio }}</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="card-subtitle mb-2 text-muted">Gender</h6>
+            <p class="card-text">{{ current_user.gender }}</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="card-subtitle mb-2 text-muted">Phone Number</h6>
+            <p class="card-text">{{ current_user.phone_number }}</p>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="card-subtitle mb-2 text-muted">Home Address</h6>
+            <p class="card-text">{{ current_user.home_address }}</p>
+          </div>
+
+          <div class="text-center">
+            <a
+              href="{{ url_for('users.update_profile') }}"
+              class="btn btn-primary mb-2"
+              >Update Profile</a
+            >
+            <a
+              href="{{ url_for('product.order_history') }}"
+              class="btn btn-info"
+              >View Your Order History Here</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
